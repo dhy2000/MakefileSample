@@ -1,14 +1,14 @@
 # A simple makefile for C and C++ mixed project (Version II)
 
 # Name of the main executable file.
-target = pyoh
+target = main
 
 # Choose the compiler(e.g. gcc/clang)
 compilerc = gcc
 compilercpp = g++
 
-compilecflags = -std=c99 -g -O2 -D_DEBUG
-compilecppflags = -std=c++11 -g -O2 -D_DEBUG
+compilecflags = -std=c99 -g -D_DEBUG
+compilecppflags = -std=c++11 -g -D_DEBUG
 compilelinkflags = -g
 
 dirproj = $(realpath .)
@@ -45,9 +45,7 @@ ifeq ($(OS), Windows_NT)
 	@if not exist $(subst /,\,$(dirobject)) ( mkdir $(subst /,\,$(dirobject)) )
 else
 	if [ ! -d $(dirbinary) ] ; then mkdir -p $(dirbinary); fi
-
 	if [ ! -d $(dirobject) ] ; then mkdir -p $(dirobject); fi
-
 endif
 
 # Main Executable Binary: Link all obj files.
@@ -61,7 +59,6 @@ ifeq ($(OS), Windows_NT)
 	@if not exist $(subst /,\,$(dir $@)) ( mkdir $(subst /,\,$(dir $@)) )
 else
 	if [ ! -d $(dir $@) ] ; then mkdir -p $(dir $@); fi
-
 endif
 	$(compilerc) $(compilecflags) -c -o $@ $<
 
@@ -71,7 +68,6 @@ ifeq ($(OS), Windows_NT)
 	@if not exist $(subst /,\,$(dir $@)) ( mkdir $(subst /,\,$(dir $@)) )
 else
 	if [ ! -d $(dir $@) ] ; then mkdir -p $(dir $@); fi
-
 endif
 	$(compilercpp) $(compilecppflags) -c -o $@ $<
 
@@ -91,6 +87,5 @@ ifeq ($(OS), Windows_NT)
 #	@echo off
 	@if exist $(dirbuild) ( rmdir /s/q $(dirbuild) )
 else
-	if [ -d $(dirbuild) ] ; then rm -r $(dirbuild)/; fi
-
+	if [ -d $(dirbuild) ] ; then rm -r $(dirbuild); fi
 endif
